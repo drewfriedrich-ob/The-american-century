@@ -1,10 +1,14 @@
-"""Rebuilds ../index.html from engine.html, the timeline-built slides and the deck slides in deck/.
-Run: python3 source/build.py
+"""Rebuilds index.html from engine.html, the timeline-built slides and the deck slides.
+Works in either layout: everything in one folder (run: python3 build.py),
+or the source/ and source/deck/slides/ folders (run: python3 source/build.py).
 """
 import json, re, html, os, sys
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-DECK = os.path.join(BASE, 'deck')
+FLAT = os.path.exists(os.path.join(BASE, 'deck.json'))
+DECK = BASE if FLAT else os.path.join(BASE, 'deck')
+SLIDES = BASE if FLAT else os.path.join(DECK, 'slides')
+ASSET = r'\1.svg' if FLAT else r'assets/\1.svg'
 
 engine = open(os.path.join(BASE, 'engine.html')).read()
 proto_src = open(os.path.join(BASE, 'american-century.proto.html')).read()
@@ -98,8 +102,8 @@ def port(sid, t):
         inner = re.sub(pat, '', inner)
     inner = re.sub(r'\s*<x-embed[\s\S]*?</x-embed>', '', inner)
     inner = inner.replace(' id="actyear"', '')
-    inner = re.sub(r'/_blob/([0-9a-f]{32})', r'assets/\1.svg', inner)
-    inner = re.sub(r'<img([^>]*?) src="(assets/[^"]+)"', r'<img\1 data-src="\2" decoding="async"', inner)
+    inner = re.sub(r'/_blob/([0-9a-f]{32})', ASSET, inner)
+    inner = re.sub(r'<img([^>]*?) src="((?:assets/)?[0-9a-f]{32}\.svg)"', r'<img\1 data-src="\2" decoding="async"', inner)
     if 'paper' in cls:
         for a, b in PAPER_INK.items():
             inner = re.sub(a, b, inner, flags=re.I)
@@ -128,7 +132,7 @@ def port(sid, t):
 sections, configs = [], []
 v, prev_year, run = 0, None, 0
 for sid in order:
-    t = open(os.path.join(DECK, 'slides', f'{sid}.html')).read()
+    t = open(os.path.join(SLIDES, f'{sid}.html')).read()
     if sid in proto_map:
         sec = protos[proto_map[sid]].replace(f'id="sc-{proto_map[sid]}"', f'id="sc-{sid}"', 1)
         cfg = dict(PROTO_CFG[sid]); cfg['kind'] = 'proto'; cfg['veil'] = 0
@@ -162,6 +166,6 @@ page = ('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="theme-color" content="#0D0F12">\n'
         '<link rel="icon" href="favicon.svg" type="image/svg+xml">\n'
         + head[:title_end] + head[title_end:] + '</style>\n</head>\n<body>' + body + '\n</body>\n</html>\n')
-open(os.path.join(BASE, '..', 'index.html'), 'w').write(page)
+open(os.path.join(BASE, 'index.html') if FLAT else os.path.join(BASE, '..', 'index.html'), 'w').write(page)
 print(len(configs), 'scenes;', len(out) // 1024, 'KB')
 print([(c['id'], c.get('shot', 'proto'), c['year'], c['beats'] if 'beats' in c else 1) for c in configs])
