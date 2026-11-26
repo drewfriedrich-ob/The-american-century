@@ -1,0 +1,34 @@
+<section id="cover" data-transition="magic" style="justify-content:space-between">
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;left:0;top:0;width:1920px;height:1080px"><defs><radialGradient id="covg" cx="1500" cy="240" r="1000" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#D9A84E" stop-opacity=".24"/><stop offset=".42" stop-color="#8F2119" stop-opacity=".1"/><stop offset="1" stop-color="#0D0F12" stop-opacity="0"/></radialGradient></defs><rect width="1920" height="1080" fill="url(#covg)"/><path d="M64 64h70M64 64v70M1856 64h-70M1856 64v70M64 1016h70M64 1016v-70M1856 1016h-70M1856 1016v-70" stroke="#F3EDE1" stroke-opacity=".35" stroke-width="2" fill="none"/></svg>
+<x-embed style="position:absolute;left:0;top:0;width:1920px;height:1080px"><!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;height:100%;background:transparent;overflow:hidden}canvas{display:block;width:100%;height:100%}</style></head><body><canvas id="c"></canvas><script>
+var c=document.getElementById('c'),x=c.getContext('2d'),W,H,D,P=[];
+function rs(){D=window.devicePixelRatio||1;W=c.width=innerWidth*D;H=c.height=innerHeight*D;}
+rs();addEventListener('resize',rs);
+for(var i=0;i<120;i++)P.push({x:Math.random(),y:Math.random(),r:Math.random()*1.5+.4,s:Math.random()*.0002+.00006,p:Math.random()*6.28,a:Math.random()*.45+.2});
+function f(){x.clearRect(0,0,W,H);for(var j=0;j<P.length;j++){var q=P[j];q.y-=q.s;q.p+=.003;if(q.y<-.02){q.y=1.02;q.x=Math.random();}
+var dx=q.x-.78,dy=q.y-.22,b=Math.max(0,1-Math.sqrt(dx*dx*1.3+dy*dy)*1.5);
+x.globalAlpha=q.a*(.12+b*.88);x.fillStyle='#F3DDA8';x.beginPath();x.arc((q.x+Math.sin(q.p)*.008)*W,q.y*H,q.r*D*(1+b*1.2),0,6.283);x.fill();}
+requestAnimationFrame(f);}requestAnimationFrame(f);
+</script></body></html></x-embed>
+<div class="row" style="gap:96px;align-items:flex-start">
+<div class="col" style="flex:1">
+<p class="eyebrow r" style="--i:1">A history in four acts · 1898 to 1969</p>
+<h1 class="acttitle fx" style="--i:2">The American<br><i style="color:#D9A84E">Century</i></h1>
+<div class="barbox" style="width:220px;margin:44px 0 0"><div class="rule w" style="--i:8;width:220px"></div></div>
+<p class="lede r" style="--i:9;max-width:880px">World wars, cold wars, and the people who changed history. How a young republic became a superpower, and what it cost.</p>
+</div>
+<div class="col" style="width:520px;gap:14px;padding:8px 0 0 36px;border-left:2px solid rgba(243,237,225,.16)">
+<p class="eyebrow r" style="--i:3;margin:0 0 10px">Chapters</p>
+<p class="body r" style="--i:4"><span style="color:#D9A84E"><b>1914</b></span>&#160;&#160;The guns of August</p>
+<p class="body r" style="--i:5"><span style="color:#D9A84E"><b>1929</b></span>&#160;&#160;The crash</p>
+<p class="body r" style="--i:6"><span style="color:#D9A84E"><b>1941</b></span>&#160;&#160;Pearl Harbor</p>
+<p class="body r" style="--i:7"><span style="color:#D9A84E"><b>1944</b></span>&#160;&#160;D-Day</p>
+<p class="body r" style="--i:8"><span style="color:#D9A84E"><b>1950</b></span>&#160;&#160;Korea</p>
+<p class="body r" style="--i:9"><span style="color:#D9A84E"><b>1962</b></span>&#160;&#160;Thirteen days in October</p>
+<p class="body r" style="--i:10"><span style="color:#D9A84E"><b>1968</b></span>&#160;&#160;Earthrise</p>
+<p class="body r" style="--i:11"><span style="color:#D9A84E"><b>1969</b></span>&#160;&#160;One small step</p>
+</div>
+</div>
+<p class="src f" style="--i:13">Press → to advance. Some slides reveal step by step; keep pressing to uncover the story.</p>
+<aside>Welcome to The American Century. Over the next hour we will travel from the battlefields of 1914 to the surface of the Moon in 1969. Each act opens with a hook and ends with a question that pulls us into the next one. Watch the small gold marker at the bottom of every slide: it is a time rail, and it moves as history moves. Four acts: the Great War, the years between the wars, World War II, and the Cold War, ending with the race to the Moon. Along the way, look for the slides titled Light in the Darkness. They tell the stories of ordinary people who showed extraordinary courage and faith when the world was at its worst.</aside>
+</section>
